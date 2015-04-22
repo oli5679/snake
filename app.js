@@ -9,6 +9,8 @@ $(document).ready(function(){
   var snakeArray;
   var growSnake = false;
   var loss = "f";
+  var best = 0;
+  var play;
 
   function dropFruit(){
     fw = Math.floor(Math.random()*w/cw);
@@ -20,20 +22,20 @@ $(document).ready(function(){
     })
   }
 
-  function init(){
+  
+  $('.new').click(function(){
+    loss = 'f';
     createSnake();
     dropFruit();
-   setInterval(render, 60)
-  }
-  
-  init();
+    play = setInterval(render, 60)
+  })
+
   function createSnake(){
     var length = 5;
     snakeArray = [];
     for(var i = length -1; i>=0; i--){
       snakeArray.push({x:i, y:0})
     }
-    console.log(snakeArray)
   }
 
   function containsDups(arr){
@@ -52,9 +54,10 @@ $(document).ready(function(){
 
   function render(){
     if(loss == "f"){
-      $(".score").empty();
-      $(".score").append(snakeArray.length-5)
-      ctx.fillStyle = "white";
+      $(".current").empty();
+      var currentScore = snakeArray.length - 5
+      $(".current").append("Score: " +currentScore);
+      ctx.fillStyle = "#d3d3d3";
       ctx.fillRect(0, 0, w, h);
       ctx.strokeStyle = "black";
       ctx.strokeRect(0, 0, w, h);
@@ -73,13 +76,23 @@ $(document).ready(function(){
       else if(d == "u")ny--; 
 
       if (nx == -1 || nx == w/cw || ny == -1 || ny == h/cw) {
-        loss = "t"
-        alert("You lose");
+        clearInterval(play);
+        loss = 't';
+        var recentScore = snakeArray.length -5;
+        if(recentScore > best) best = recentScore;
+        $(".best").empty();
+        $('.best').append("Best: "+best)
+        snakeArray = [];
       }
 
       if(containsDups(snakeArray)){
-        loss = 't'
-        alert("You lose");
+        clearInterval(play);
+        loss = 't';
+        var recentScore = snakeArray.length -5;
+        if(recentScore > best) best = recentScore;
+        $(".best").empty();
+        $('.best').append("Best: "+best)
+        snakeArray = [];
       }
 
       if(growSnake === true){
@@ -97,7 +110,7 @@ $(document).ready(function(){
       for(var i = 0; i < snakeArray.length; i++)
           {
             var c = snakeArray[i];
-            paint(c.x, c.y, 'blue');
+            paint(c.x, c.y, 'green');
           }  
       paint(fruit.x, fruit.y, 'red');
       function paint(x,y,colour){
@@ -119,7 +132,4 @@ $(document).ready(function(){
     else if(key == "39" && d != 'l') d = 'r'
   })
 
-  $('.new').click(function(){
-    location.reload();  
-  })
 })

@@ -1,0 +1,57 @@
+html { 
+  background-image: url("grey.jpg");
+  background-size: 120% ;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.new {
+  display: block; 
+  width: 100px; 
+  height: 80px; 
+  padding: 100 30 30 30; 
+  margin: 0 left;
+  background: #5A5B62;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 30px;
+  color: white;
+}
+.show {
+  box-shadow: inset 0px 0px 6px #fff;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
+
+  .gameBar {
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid #2f4f4f;
+    border-radius: 2px; 
+    color: white;
+    font-size: 30px;
+  }
+
+  .current {
+    float: left;
+    padding: 5px;
+  }
+
+  .best {
+    float: right;
+    padding: 5px;
+  }
+
+  #canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
